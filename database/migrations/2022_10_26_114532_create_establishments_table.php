@@ -27,6 +27,7 @@ return new class extends Migration {
             $table->string('AddressLine2')->nullable();
             $table->string('AddressLine3')->nullable();
             $table->string('AddressLine4')->nullable();
+            $table->string('Phone')->nullable();
             $table->string('PostCode')->nullable();
             $table->string('RatingValue')->nullable();
             $table->string('RatingDate')->nullable();
