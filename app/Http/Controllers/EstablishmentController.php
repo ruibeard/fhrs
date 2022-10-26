@@ -8,6 +8,13 @@ use App\Models\Establishment;
 
 class EstablishmentController extends Controller
 {
+
+    public function __invoke()
+    {
+
+        return view('welcome')->with('establishments', Establishment::all());
+    }
+
     /**
      * Display a listing of the resource.
      *
