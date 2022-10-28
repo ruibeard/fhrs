@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Establishment extends Model
 {
+    protected $guarded = [];
     use HasFactory;
     use SoftDeletes;
-
 }

@@ -20,7 +20,7 @@ return new class extends Migration {
         Schema::create('establishments', function (Blueprint $table) {
             $table->id();
             $table->integer('FHRSID')->unique()->nullable();
-            $table->integer('LocalAuthorityBusinessID')->nullable();
+            $table->string('LocalAuthorityBusinessID')->nullable();
             $table->string('BusinessName')->nullable();
             $table->integer('BusinessTypeID')->nullable();
             $table->string('AddressLine1')->nullable();

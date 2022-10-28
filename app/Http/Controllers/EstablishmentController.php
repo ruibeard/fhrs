@@ -4,90 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreEstablishmentRequest;
 use App\Http\Requests\UpdateEstablishmentRequest;
+use App\Http\Resources\BusinessResource;
 use App\Models\Establishment;
+use App\Services\FHRS\Service;
 
 class EstablishmentController extends Controller
 {
 
     public function __invoke()
     {
+        $service = resolve(Service::class);
 
+        foreach ($service->establishements() as $item) {
+            Establishment::updateOrCreate($this->mapFields($item));
+        }
         return view('welcome')->with('establishments', Establishment::all());
     }
 
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
+    public function mapFields(mixed $item): array
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \App\Http\Requests\StoreEstablishmentRequest  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(StoreEstablishmentRequest $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Establishment  $establishment
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Establishment $establishment)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Establishment  $establishment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Establishment $establishment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \App\Http\Requests\UpdateEstablishmentRequest  $request
-     * @param  \App\Models\Establishment  $establishment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(UpdateEstablishmentRequest $request, Establishment $establishment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Establishment  $establishment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Establishment $establishment)
-    {
-        //
+        return [
+            'FHRSID'                   => $item->FHRSID,
+            'LocalAuthorityBusinessID' => $item->LocalAuthorityBusinessID,
+            'BusinessName'             => $item->BusinessName,
+            'BusinessTypeID'           => $item->BusinessTypeID,
+            'AddressLine1'             => $item->AddressLine1,
+            'AddressLine2'             => $item->AddressLine2,
+            'AddressLine3'             => $item->AddressLine3,
+            'AddressLine4'             => $item->AddressLine4,
+            'Phone'                    => $item->Phone,
+            'PostCode'                 => $item->PostCode,
+            'RatingValue'              => $item->RatingValue,
+            'RatingDate'               => $item->RatingDate,
+            'LocalAuthorityName'       => $item->LocalAuthorityName,
+            'Hygiene'                  => $item->scores->Hygiene,
+            'Structural'               => $item->scores->Structural,
+            'ConfidenceInManagement'   => $item->scores->ConfidenceInManagement,
+            'longitude'                => $item->geocode->longitude,
+            'latitude'                 => $item->geocode->latitude,
+        ];
     }
 }

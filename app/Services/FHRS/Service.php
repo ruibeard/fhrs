@@ -8,8 +8,8 @@ use Illuminate\Support\Facades\Http;
 class Service
 {
     public function __construct(
-        private string $baseUri,
-        private int $timeout
+        private readonly string $baseUri,
+        private readonly int $timeout
     ) {
     }
 
@@ -17,13 +17,18 @@ class Service
     {
         $request = $this->buildRequest();
 
-        $response = $request->get(url: $this->baseUri.'Establishments');
+        $response = $request->get(
+            url: $this->baseUri.'Establishments',
+            query: [
+                'pageSize'       => '2',
+                'businesstypeId' => '1',
+            ]);
 
         if ($response->failed()) {
             throw $response->toException();
         }
 
-        return $response;
+        return $response->object()->establishments;
     }
 
     private function buildRequest(): PendingRequest
@@ -35,6 +40,6 @@ class Service
                 'Accept-Language' => 'en-GB',
             ]
         )
-            ->timeout(30);
+            ->timeout($this->timeout);
     }
 }
