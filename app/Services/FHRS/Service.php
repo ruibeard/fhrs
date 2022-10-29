@@ -13,15 +13,16 @@ class Service
     ) {
     }
 
-    public function establishements()
+    public function establishements($location)
     {
         $request = $this->buildRequest();
-
+        //TODO: hard coded values should be passed
         $response = $request->get(
             url: $this->baseUri.'Establishments',
             query: [
-                'pageSize'       => '2',
-                'businesstypeId' => '1',
+                'pageSize'       => 50,
+                'address'        => $location,
+                'businesstypeId' => 1,
             ]);
 
         if ($response->failed()) {

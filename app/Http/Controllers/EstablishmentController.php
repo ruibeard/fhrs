@@ -2,26 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreEstablishmentRequest;
-use App\Http\Requests\UpdateEstablishmentRequest;
-use App\Http\Resources\BusinessResource;
 use App\Models\Establishment;
 use App\Services\FHRS\Service;
+use Illuminate\Http\Request;
 
 class EstablishmentController extends Controller
 {
 
-    public function __invoke()
+
+    public function __invoke(Request $request)
     {
+        $address = $request->get('address');
         $service = resolve(Service::class);
 
-        foreach ($service->establishements() as $item) {
+        foreach ($service->establishements($address) as $item) {
             Establishment::updateOrCreate($this->mapFields($item));
         }
-        return view('welcome')->with('establishments', Establishment::all());
+
+        $establishments = Establishment::where('AddressLine3', $address)->orWhere('AddressLine4', $address)->get();
+
+        return view('index')->with('establishments', $establishments);
     }
 
-    public function mapFields(mixed $item): array
+    private function mapFields(object $item): array
     {
         return [
             'FHRSID'                   => $item->FHRSID,

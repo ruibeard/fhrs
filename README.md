@@ -1,5 +1,26 @@
 # Fullcomms Technical Test
 
+## TODO:
+
+### Backend
+
+- [x] Create a migrations
+- [x] Create a seeder
+- [x] Fetch Data From external Api - *needs more work, it's fetching **hardcoded** 50 items per-page*
+  **also, e.g. if the user searches for "Manchester" it's returning results for "Manchester Road, London" etc.**
+- [x] Save data to mysql Database
+- [ ] Handle soft deletes to avoid showing results deleted by the user uppon re-fetching
+- [ ] \(Optionally) A small RESTful API as described above that other developers can then
+  use to access your saved database and make changes and rate the places personally.
+
+### Front-End
+
+- [x] A small web form view where the lazy developers can put in a location/region and see
+  the information. e.g. Manchester will return all data relating to Manchester
+- [x] Create a view to show all restaurants - **needs pagination**
+- [x] Create search form to filter results by location
+- [ ] A way of ordering the data from highest rating to lowest as well as alphabetically. *not sure if the aim is to sort in FE with JS or on the BE*
+
 ## Introduction
 
 The scenario is purely fiction
@@ -29,7 +50,6 @@ using this framework.
 To further flex your skillset and understanding you will also make a small Frontend GUI which
 will allow us lazy developers the ability to view an area and sort the results alphabetically as
 well as by hygiene score rating.
-
 
 Additionally (Optional if you want to show of more skills) we would like the ability to alter the
 database directly via an API (no direct access to the DB) so we can edit business names, rate
@@ -82,7 +102,6 @@ making and overall application will be looked at.
 Where some of Laravels additional packages such as Jetstream will handle a lot of the API
 logic and permissions, we would favour you not using this package so you can show your
 
-
 understanding without the need to use that particular package. Other packages such as
 fortify are welcome.
 
@@ -90,20 +109,3 @@ The main assessment of the task is orientated around backend development so the 
 visuals are not as important, however, if you feel confident and would like to flex your
 frontend/fullstack ability then feel free to develop the small frontend portion in any way you
 see fit.
-
-## TODO:
-
- - [ ] A way in which the FHRS API can be consumed and saved to a MySQL database or one
-  of your choosing.
-   - [ ] Create a migrations 
-   - [ ] Create a seeder
-   - [ ] Fetch Data From external Api
-   - [ ] Save data to mysql Database
-- [ ] A small web form view where the lazy developers can put in a location/region and see
-  the information. e.g. Manchester will return all data relating to Manchester
-  - [ ] Create a view to show all restaurants
-  - [ ] Create search form to filter results
-  - [ ] Ability to search by lat/long radios
-- [ ] A way of ordering the data from highest rating to lowest as well as alphabetically.
-- [ ] (Optionally) A small RESTful API as described above that other developers can then
-  use to access your saved database and make changes and rate the places personally.
